@@ -1,0 +1,394 @@
+/* Reset e variabili */
+:root {
+  /* --primary-color: #2c3e50;
+  --accent-color: #3498db;
+  --text-color: #2c3e50;
+  --background-color: #f9fafb;
+  --card-background: #ffffff; */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 1rem;
+  --spacing: 1.5rem;
+  /* --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+
+  --transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-speed: 0.5s;
+  --transition: all var(--transition-speed) var(--transition-timing-function);
+  overflow-x: hidden;
+}
+
+/* Stili base */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  padding: 0; /* Rimuovo il padding dal body */
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  /* margin: 0.5rem auto; */
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.allergeni {
+  color: gray;
+  font-size: 0.7rem;
+  /* background-color: red; */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Stili categoria */
+.category {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: var(--transition);
+}
+
+.category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+.category-header {
+  background: linear-gradient(135deg, var(--primary-color), #34495e);
+  padding: 0.2rem var(--spacing);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 1.6rem;
+}
+
+.category-header h2 {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-header h2::after {
+  content: "›";
+  font-size: 1.8rem;
+  transition: var(--transition);
+  transform: rotate(90deg);
+}
+
+.category-header.active h2::after {
+  transform: rotate(-90deg);
+}
+
+/* Animazione categoria */
+.categoria-animazione {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  background: var(--card-background);
+  padding: 0 var(--spacing);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: 
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out,
+    padding 0.3s ease-out;
+}
+
+.categoria-animazione.active {
+  max-height: 200000rem;
+  opacity: 1;
+  transform: scaleY(1);
+  padding: var(--spacing);
+}
+
+/* Animazione di chiusura specifica */
+.categoria-animazione:not(.active) {
+  transition: 
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease-in,
+    transform 0.2s ease-in,
+    padding 0.2s ease-in;
+}
+
+/* Stili prodotto */
+.product {
+  border-radius: calc(var(--border-radius) - 4px);
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  box-shadow: 2px 2px 8px var(--shadow-color);
+}
+
+.product:last-child {
+  margin-bottom: 0;
+}
+
+.product h3 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.description {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+  /* margin-bottom: 0.8rem; */
+  /* line-height: 1.5; */
+  white-space: pre-line;
+  
+}
+
+.cont-price-allergeni {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  color: var(--accent-color);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.price::before {
+  content: "€";
+  margin-right: 2px;
+  font-size: 0.9em;
+}
+
+/* Animazione prodotti con timing migliorato */
+.prodotto-animazione {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-out;
+}
+
+.categoria-animazione.active .prodotto-animazione {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delays progressivi per i prodotti */
+.categoria-animazione.active .prodotto-animazione:nth-child(1) { transition-delay: 0.1s; }
+.categoria-animazione.active .prodotto-animazione:nth-child(2) { transition-delay: 0.15s; }
+.categoria-animazione.active .prodotto-animazione:nth-child(3) { transition-delay: 0.2s; }
+.categoria-animazione.active .prodotto-animazione:nth-child(4) { transition-delay: 0.25s; }
+.categoria-animazione.active .prodotto-animazione:nth-child(5) { transition-delay: 0.3s; }
+
+/* Effetti hover sui prodotti */
+.product:hover {
+  transform: translateX(5px);
+  box-shadow: 2px 2px 8px var(--shadow-color);
+  /* border-color: var(--accent-color); */
+}
+
+/* Animazioni keyframe per l'apertura/chiusura */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  :root {
+    --spacing: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .category-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .product h3 {
+    font-size: 1.1rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Effetti di ripple sul click */
+.category-header::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.category-header:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+/* °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°° */
+
+.hero {
+  width: 100vw;
+  height: 20rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Per gestire eventuali overflow dell'immagine */
+  display: flex; /* Per centrare l'immagine */
+  justify-content: center;
+  align-items: center;
+}
+
+.hero img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mantiene le proporzioni coprendo l'area */
+  object-position: center; /* Centra l'immagine */
+}
+
+.coperto, .testo-aggiuntivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.coperto p span {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.coperto p {
+  color: var(--accent-color);
+  margin: 0;
+}
+.testo-aggiuntivo p span{
+    color: var(--text-color)
+}
+.testo-aggiuntivo p{
+    color: gray;
+}
+
+/* Medium devices (landscape tablets, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .container {
+    max-width: 60%;
+  }
+  .hero {
+    max-width: 100%;
+  }
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem;
+    /* background-color: red; */
+}
+
+.social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: gray;
+
+    
+}
+
+.social-icon-color {
+    width: 32px !important;
+    height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    object-fit: contain;
+    -webkit-transform: scale(1);  /* Fix per Safari */
+    transform: scale(1);
+    -webkit-flex-shrink: 0;  /* Previene il ridimensionamento in Safari */
+    flex-shrink: 0;
+    -webkit-appearance: none;  /* Rimuove stili predefiniti di Safari */
+}
+
+/* Media query per dispositivi mobili */
+@media screen and (max-width: 768px) {
+    .social {
+        gap: 2rem;
+        margin: 2rem;
+    }
+    
+    .social-icon-color {
+        width: 32px !important;
+        height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+        -webkit-transform: scale(1);  /* Fix per Safari */
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+
